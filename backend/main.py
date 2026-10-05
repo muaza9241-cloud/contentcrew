@@ -26,6 +26,10 @@ def read_root():
         "message": "ContentCrew Backend is running successfully with Ollama!"
     }
 
+@app.get("/health")
+def health_check():
+    return {"status": "healthy", "backend": "online"}
+
 @app.post("/api/generate")
 def generate_content(req: GenerateRequest):
     try:
@@ -45,6 +49,7 @@ def generate_content(req: GenerateRequest):
                     'content': 'You are ContentCrew AI, an advanced AI assistant specialized in marketing, coding, and content creation.'
                 },
                 {
+                    'prompt': full_prompt,
                     'role': 'user',
                     'content': full_prompt,
                 },
